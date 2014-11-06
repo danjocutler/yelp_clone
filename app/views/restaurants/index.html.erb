@@ -5,7 +5,9 @@
 		<p><%= link_to "Edit #{restaurant.name}", edit_restaurant_path(restaurant) %></p>
 		<p><%= link_to "Delete #{restaurant.name}", restaurant_path(restaurant), method: :delete %></p>
 		<% end %>
-		<p><%= link_to "Review #{restaurant.name}", new_restaurant_review_path(restaurant) %></p>
+		<% unless restaurant.reviews.any?{|review| review.user_id == current_user.id} %>
+			<p> <%= link_to "Review #{restaurant.name}", new_restaurant_review_path(restaurant) %></p>
+		<% end %>
 		<% if restaurant.reviews.any? %>
   <ul>
     <% restaurant.reviews.each do |review| %>
