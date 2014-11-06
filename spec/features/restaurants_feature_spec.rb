@@ -26,19 +26,10 @@ end
 
 describe 'CRUD' do
 
-	before do
-    visit('/')
-    click_link('Sign up')
-    fill_in('Email', with: 'test@example.com')
-    fill_in('Password', with: 'testtest')
-    fill_in('Password confirmation', with: 'testtest')
-    click_button('Sign up')
-  end
-
 	context 'creating restaurants' do
 
 		it 'prompts user to fill out a form, then displays the new restaurant' do
-			visit '/restaurants'
+			sign_up
 			click_link 'Add a restaurant'
 			fill_in 'Name', with: 'KFC'
 			click_button 'Create Restaurant'
@@ -50,7 +41,7 @@ describe 'CRUD' do
 	context 'an invalid restaurant' do
 
 		it "doesn't let you submit a name that is too short" do
-			visit '/restaurants'
+			sign_up
 			click_link 'Add a restaurant'
 			fill_in 'Name', with: 'kf'
 			click_button 'Create Restaurant'
@@ -81,31 +72,45 @@ describe 'CRUD' do
 
 	context 'editing restaurants' do
 
-  before do 
-    Restaurant.create(name:'KFC') 
-  end
-
 	  it 'lets a user edit a restaurant' do
-	   visit '/restaurants'
-	   click_link 'Edit KFC'
-	   fill_in 'Name', with: 'Kentucky Fried Chicken'
-	   click_button 'Update Restaurant'
-	   expect(page).to have_content 'Kentucky Fried Chicken'
-	   expect(current_path).to eq '/restaurants'
+			sign_up
+		  create_restaurant
+		  click_link 'Edit KFC'
+		  fill_in 'Name', with: 'Kentucky Fried Chicken'
+		  click_button 'Update Restaurant'
+		  expect(page).to have_content 'Kentucky Fried Chicken'
+		  expect(current_path).to eq '/restaurants'
+	  end
+
+	  it "shouldn't let a user edit a restaurant they haven't created" do
+	  	Restaurant.create(name: "KFC")
+	  	visit '/'
+	  	sign_up(email = 'Dan@test.com',
+	  					usernsame = 'Danny',
+	  					password = 'password',
+	  					password_confirmation = 'password')
+	  	expect(page).not_to have_content 'Edit KFC'
 	  end
 	end
 
 	context 'deleting restaurants' do
 
-  before do
-    Restaurant.create(name: "KFC")
-  end
-
 	  it "removes a restaurant when a user clicks a delete link" do
+	  	sign_up
+	  	create_restaurant
 	    visit '/restaurants'
 	    click_link 'Delete KFC'
 	    expect(page).not_to have_content 'KFC'
 	    expect(page).to have_content 'Restaurant deleted successfully'
 	  end
+
+	  it "only the user who created the restaurant can delete the restaurant" do
+	  	visit '/restaurants'
+	  	sign_up(email = 'Dan@test.com',
+	  					usernsame = 'Danny',
+	  					password = 'password',
+	  					password_confirmation = 'password')
+	  	expect(page).not_to have_content 'Delete KFC'
+		end
 	end
 end
