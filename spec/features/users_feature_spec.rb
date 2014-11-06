@@ -39,10 +39,6 @@ end
 
 context 'user limitations' do
 
-  before do
-    Restaurant.create(name: 'KFC')
-  end
-
   it 'user must be logged in to create restaurants' do
     visit '/'
     click_link 'Add a restaurant'
@@ -50,8 +46,9 @@ context 'user limitations' do
   end
 
   it "users can only review restaurants if they're signed in" do
-    visit '/'
-    click_link 'Review KFC'
-    expect(page).to have_content 'You need to sign in or sign up before continuing.'
+    sign_up
+    create_restaurant
+    click_link 'Sign out'
+    expect(page).not_to have_content 'Review KFC'
   end
 end
