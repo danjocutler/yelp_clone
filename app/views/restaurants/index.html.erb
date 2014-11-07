@@ -8,17 +8,19 @@
 		<% if user_signed_in? %>
 		<% unless restaurant.reviews.any?{|review| review.user_id == current_user.id} %>
 			<p> <%= link_to "Review #{restaurant.name}", new_restaurant_review_path(restaurant) %></p>
+			
 			<% end %>
 		<% end %>
 		<% if restaurant.reviews.any? %>
-  <ul>
-    <% restaurant.reviews.each do |review| %>
-      <li>
-        <%= review.thoughts %>, <strong><%= review.rating %></strong>/5
-      </li>
-    <% end %>
-	      <h3>Average rating: <%= star_rating(restaurant.average_rating) %></h3>
-  </ul>
+			<ul>
+			  <% restaurant.reviews.each do |review| %>
+			    <li>
+			      <%= review.thoughts %> Average rating: <%= star_rating(restaurant.average_rating) %>
+			        <%= link_to "Endorse", review_endorsements_path(review), class: 'endorsements-link' %>
+			        <span class="endorsements_count"> <%= review.endorsements.count %> </span> endorsements
+			    </li>
+			  <% end %>
+			</ul>
 <% else %>
   <p>No reviews.</p>
 <% end %>
