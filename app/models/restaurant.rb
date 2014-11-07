@@ -10,5 +10,5 @@ class Restaurant < ActiveRecord::Base
 	  return 'N/A' if reviews.none?
 	  reviews.average(:rating)
 	end
-	
+
 end
