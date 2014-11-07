@@ -58,11 +58,8 @@ describe 'CRUD' do
 
 	context 'viewing restaurants' do
 
-		before do
-			@kfc = Restaurant.create(name:'KFC')
-		end
-
 		it 'lets a user view a restaurant' do
+			Restaurant.create(name: 'KFC', id: 1)
 			visit '/restaurants'
 			click_link 'KFC'
 			expect(page).to have_content 'KFC'
@@ -113,4 +110,13 @@ describe 'CRUD' do
 	  	expect(page).not_to have_content 'Delete KFC'
 		end
 	end
+
+	describe '#average_rating' do
+	  context 'no reviews' do
+	    it 'returns "N/A" when there are no reviews' do
+	      restaurant = Restaurant.create(name: "The Ivy")
+	      expect(restaurant.average_rating).to eq 'N/A'
+	    end
+	  end
+	end	
 end

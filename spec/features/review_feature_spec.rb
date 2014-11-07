@@ -21,4 +21,14 @@ describe 'reviewing' do
     select '3', from: 'Rating'
     expect(page).not_to have_content "Review KFC"
   end
+
+  it 'displays an average rating for all reviews' do
+    sign_up
+    create_restaurant
+    leave_review('So so', "3")
+    click_link 'Sign out'
+    sign_up2
+    leave_review('Great', "5")
+    expect(page).to have_content("Average rating: ★★★★☆")
+  end
 end
