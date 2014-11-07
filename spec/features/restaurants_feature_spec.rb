@@ -59,7 +59,7 @@ describe 'CRUD' do
 	context 'viewing restaurants' do
 
 		it 'lets a user view a restaurant' do
-			Restaurant.create(name: 'KFC', id: 1)
+			@kfc = Restaurant.create(name: 'KFC', id: 1)
 			visit '/restaurants'
 			click_link 'KFC'
 			expect(page).to have_content 'KFC'
