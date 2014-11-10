@@ -49,4 +49,6 @@ gem 'devise'
 gem 'omniauth-facebook'
 gem 'cancan'
 gem 'twitter-bootstrap-rails'
+gem 'paperclip'
+gem 'aws-sdk'
 
