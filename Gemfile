@@ -51,4 +51,5 @@ gem 'cancan'
 gem 'twitter-bootstrap-rails'
 gem 'paperclip'
 gem 'aws-sdk'
+gem 'figaro'
 
