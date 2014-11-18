@@ -4,11 +4,11 @@ YELP CLONE
 A little yelp style program to add, review and see restaurants.
 ---------------------------------------------------------------
 
-Run locally on rails server --- localhost:3000
+Run locally on rails server ($ rails s) --- visit localhost:3000
 
 or
 
-visit https://dansyelpclone.herokuapp.com/ (currently facbook login not working with heroku).
+visit https://dansyelpclone.herokuapp.com/ (currently facebook login not working with heroku).
 
 ------------------------
 
