@@ -1,5 +1,6 @@
 YELP CLONE
 ==========
+[![Code Climate](https://codeclimate.com/github/danjocutler/yelp_clone/badges/gpa.svg)](https://codeclimate.com/github/danjocutler/yelp_clone)
 
 A little yelp style program to add, review and see restaurants.
 ---------------------------------------------------------------
